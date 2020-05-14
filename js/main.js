@@ -1,10 +1,17 @@
-function getExcuse() {
-    var inputVal = document.getElementById("excuse").value;
-    document.getElementById("reason").innerHTML = inputVal + " " + getPerfectlyLegitimateReason();
+function getSituation() {
+    var situation = document.getElementById("situation").value;
+    getPerfectlyLegitimateReason(situation);
 }
 
-function getPerfectlyLegitimateReason() {
+function getPerfectlyLegitimateReason(situation) {
     $.getJSON("https://raw.githubusercontent.com/mar-schmidt/needareason.github.io/master/reasons.json", function(json) {
-        return json.reasons[Math.floor(Math.random() * json.reasons.length)];
+        if (json != null) {
+            var excuse = json.reasons[Math.floor(Math.random() * json.reasons.length)];
+            postExcuse(situation, excuse);
+        }
     }); 
+}
+
+function postExcuse(situation, excuse) {
+    document.getElementById("excuse").innerHTML = situation + " " + excuse;
 }
